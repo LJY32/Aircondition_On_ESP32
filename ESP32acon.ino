@@ -35,12 +35,14 @@ void setup()
 void loop()
 {
     auto client = server.accept();
-    if(client.available()) 
+    while(client.available()) 
     {
       auto msg = client.readBlocking();
       aircon(msg.data());
       client.send(json_send());
-      client.close();
+      delay(100);
+      continue;
     }
+    client.close();
     delay(100);
 }
